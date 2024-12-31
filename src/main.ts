@@ -3,7 +3,7 @@ import './instrument';
 
 // Now import other modules
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from '@/app/app.module';
 import { config } from './config';
 import { LogLevel, ValidationPipe, VersioningType } from '@nestjs/common';
 import { AllExceptionsFilter, HttpErrorFilter, HttpExceptionFilter } from './common/filters';
@@ -29,8 +29,8 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalFilters(new HttpErrorFilter());
 
-  // const swaggerDocument = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'swagger.json'), 'utf8'));
-  // SwaggerModule.setup('doc', app, swaggerDocument);
+  const swaggerDocument = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'swagger.json'), 'utf8'));
+  SwaggerModule.setup('doc', app, swaggerDocument);
 
   await app.listen(config.PORT);
 }

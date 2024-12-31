@@ -29,4 +29,4 @@ RUN pnpm build
 EXPOSE 3000
 
 # Start the application with the command
-CMD ["/bin/sh", "-c", "pnpm prisma:deploy && pnpm start:prod"]
+CMD ["/bin/sh", "-c", "pnpm start:prod"]
