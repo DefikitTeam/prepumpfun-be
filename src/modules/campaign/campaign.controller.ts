@@ -9,6 +9,19 @@ export class CampaignController {
 
   @Get()
   async getCampaigns() {
-    return this.campaignService.getCampaigns();
+    const listCampaign = await this.campaignService.getCampaigns();
+    return {
+      data: listCampaign,
+      message: 'List of campaigns',
+    }
+  }
+
+  @Get('/status')
+  async getCampaignStatus() {
+    const listCampaignStatus = await this.campaignService.getCampaignStatus();
+    return {
+      data: listCampaignStatus,
+      message: 'List of campaign status',
+    }
   }
 }

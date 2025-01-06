@@ -20,10 +20,13 @@ model Campaign {
   name            String
   symbol          String
   uri             String
-  donationGoal    Int
+  totalFundRaised Float
+  donationGoal    Float
   depositDeadline Int
   tradeDeadline   Int
   timestamp       Int
+
+  @@map("campaigns")
 }
 
 model Transaction {
@@ -31,4 +34,15 @@ model Transaction {
   signature String
   block     String
   blockTime Int
+
+  @@map("transactions")
+}
+
+model AddTokenPumpProcesses {
+  id            String @id @default(cuid()) @map("_id") @db.ObjectId
+  campaignIndex Int
+  creator       String
+  status        String
+
+  @@map("add_token_pump_processes")
 }

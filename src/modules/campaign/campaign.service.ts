@@ -11,4 +11,8 @@ export class CampaignService {
   async getCampaigns() {
     return this.prismaRepository.campaign.findMany();
   }
+  
+  async getCampaignStatus() {
+    return this.prismaRepository.addTokenPumpProcesses.findMany();
+  }
 }
