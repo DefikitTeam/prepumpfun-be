@@ -25,6 +25,7 @@ model Campaign {
   depositDeadline Int
   tradeDeadline   Int
   timestamp       Int
+  mint            String?
 
   @@map("campaigns")
 }

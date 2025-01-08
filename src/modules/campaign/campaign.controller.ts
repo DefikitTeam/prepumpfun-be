@@ -1,5 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { CampaignService } from '@/modules/campaign/campaign.service';
+import { appendFile } from 'fs';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('campaign')
 export class CampaignController {
@@ -23,5 +25,20 @@ export class CampaignController {
       data: listCampaignStatus,
       message: 'List of campaign status',
     }
+  }
+
+  @Post('/upload')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadMetadata(@UploadedFile() file: Express.Multer.File, @Body() body: { name: string; description: string }) {
+    const url = await this.campaignService.uploadMetadata({
+      file: file.buffer,
+      name: body.name,
+      description: body.description
+    });
+    
+    return {
+      data: { url },
+      message: 'File uploaded successfully'
+    };
   }
 }
