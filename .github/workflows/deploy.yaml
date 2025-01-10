@@ -42,8 +42,7 @@ jobs:
       env:
         KUBECONFIG: ${{ github.workspace }}/kubeconfig
       run: |
-       cd app && \
-        helm upgrade --install app . \
-          --set image.repository=***/prepump-be \
-          --set image.tag=8b9f6ac601f2cb3b2f316188207cc3676b88d125 \
-          --namespace default
+       helm upgrade --install app . \
+        --set image.repository=***/prepump-be \
+        --set image.tag=8b9f6ac601f2cb3b2f316188207cc3676b88d125 \
+        --namespace prepump-be
