@@ -1,68 +1,19 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps/v1  # Specifies the version of the Kubernetes API to use for the Deployment
+kind: Deployment     # Defines the resource type; in this case, it is a Deployment
 metadata:
-  name: prepumpfunbe
-  labels:
-    {{- include "Pre-Pumpfun-BE.labels" . | nindent 4 }}
+  name: prepumpfunbe   # The name of the Deployment, used to identify it within the Kubernetes cluster
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
+  replicas: 1        # The desired number of pod replicas to run
   selector:
-    matchLabels:
-      app: prepumpfunbe
-  template:
+    matchLabels:     # Selector to identify the pods managed by this Deployment
+      app: prepumpfunbe # The label that must match the pods to be managed
+  template:          # Template for the pod that will be created by the Deployment
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      labels:
-        {{- include "Pre-Pumpfun-BE.labels" . | nindent 8 }}
-        {{- with .Values.podLabels }}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
+      labels:       # Labels assigned to the pods created by this Deployment
+        app: prepumpfunbe # The same label used in the selector to link the pods to the Deployment
     spec:
-      {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      serviceAccountName: {{ include "Pre-Pumpfun-BE.serviceAccountName" . }}
-      securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      containers:
-        - name: {{ .Chart.Name | "prepumpfunbe" }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: {{ .Values.service.port || 3000 }}
-              protocol: TCP
-          livenessProbe:
-            {{- toYaml .Values.livenessProbe | nindent 12 }}
-          readinessProbe:
-            {{- toYaml .Values.readinessProbe | nindent 12 }}
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
-          volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
-      volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+      containers:    # Specifies the list of containers to run in the pod
+        - name: prepumpfunbe  # Name of the container
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}" # Docker image used for the container
+          ports:       # List of ports to expose from the container
+            - containerPort: 3000

@@ -1,15 +1,11 @@
-apiVersion: v1
-kind: Service
+apiVersion: v1                # Specifies the version of the Kubernetes API to use for the Service
+kind: Service                 # Defines the resource type; in this case, it is a Service
 metadata:
-  name: prepumpfunbe
-  labels:
-    {{- include "prepumpfunbe.labels" . | nindent 4 }}
+  name: prepumpfunbe           # The name of the Service, used to identify it within the Kubernetes cluster
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.service.type }}   # The type of service (e.g., ClusterIP, NodePort, LoadBalancer), pulled from values.yaml
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
+    - port: {{ .Values.service.port }}  # The port exposed by the Service, pulled from values.yaml
+      targetPort: 3000          # The port on the container that the Service should forward traffic to
   selector:
     app: prepumpfunbe

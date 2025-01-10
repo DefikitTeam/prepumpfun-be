@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "defikit-helm.name" -}}
+{{- define "prepumpfunbe.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "defikit-helm.fullname" -}}
+{{- define "prepumpfunbe.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "defikit-helm.chart" -}}
+{{- define "prepumpfunbe.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "defikit-helm.labels" -}}
-helm.sh/chart: {{ include "defikit-helm.chart" . }}
-{{ include "defikit-helm.selectorLabels" . }}
+{{- define "prepumpfunbe.labels" -}}
+helm.sh/chart: {{ include "prepumpfunbe.chart" . }}
+{{ include "prepumpfunbe.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "defikit-helm.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "defikit-helm.name" . }}
+{{- define "prepumpfunbe.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "prepumpfunbe.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "defikit-helm.serviceAccountName" -}}
+{{- define "prepumpfunbe.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "defikit-helm.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "prepumpfunbe.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

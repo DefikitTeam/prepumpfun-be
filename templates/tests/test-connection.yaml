@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "defikit-helm.fullname" . }}-test-connection"
+  name: "{{ include "prepumpfunbe.fullname" . }}-test-connection"
   labels:
-    {{- include "defikit-helm.labels" . | nindent 4 }}
+    {{- include "prepumpfunbe.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test
 spec:
@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "defikit-helm.fullname" . }}:{{ .Values.service.port }}']
+      args: ['{{ include "prepumpfunbe.fullname" . }}:{{ .Values.service.port }}']
   restartPolicy: Never
