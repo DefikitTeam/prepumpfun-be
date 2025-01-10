@@ -46,7 +46,7 @@ jobs:
       run: ls -la
 
     - name: Go out
-      run: cd ..
+      run: cd ~
 
     - name: List directory 2
       run: ls -la
