@@ -35,14 +35,26 @@ jobs:
     - name: Create kubeconfig file
       run: echo "${{ secrets.KUBECONFIG }}" > ${{ github.workspace }}/kubeconfig
 
+    - name: Set KUBECONFIG Environment Variable
+      run: export KUBECONFIG=${{ github.workspace }}/kubeconfig
+
+    - name: Create Kubernetes Namespace
+      run: |
+        kubectl get namespace prepump-be || kubectl create namespace prepump-be
+      env:
+        KUBECONFIG: ${{ github.workspace }}/kubeconfig
+
     - name: List Current Directory
       run: ls -la
 
     - name: Deploy to Kubernetes using Helm
       env:
         KUBECONFIG: ${{ github.workspace }}/kubeconfig
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: "ap-southeast-1"
       run: |
-       helm upgrade --install app . \
-        --set image.repository=***/prepump-be \
-        --set image.tag=8b9f6ac601f2cb3b2f316188207cc3676b88d125 \
-        --namespace prepump-be
+        helm upgrade --install app . \
+          --set image.repository=javakent91/prepump-be \
+          --set image.tag=${{ github.sha }} \
+          --namespace prepump-be
