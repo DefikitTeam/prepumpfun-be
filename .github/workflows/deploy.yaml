@@ -35,6 +35,9 @@ jobs:
     - name: Create kubeconfig file
       run: echo "${{ secrets.KUBECONFIG }}" > ${{ github.workspace }}/kubeconfig
 
+    - name: List Current Directory
+      run: ls -la
+
     - name: Deploy to Kubernetes using Helm
       env:
         KUBECONFIG: ${{ github.workspace }}/kubeconfig
