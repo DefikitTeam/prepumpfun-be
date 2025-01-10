@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "prepumpfunbe.fullname" . }}
+  name: {{ include "Pre-Pumpfun-BE.fullname" . }}
   labels:
-    {{- include "prepumpfunbe.labels" . | nindent 4 }}
+    {{- include "Pre-Pumpfun-BE.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "prepumpfunbe.selectorLabels" . | nindent 6 }}
+      {{- include "Pre-Pumpfun-BE.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "prepumpfunbe.labels" . | nindent 8 }}
+        {{- include "Pre-Pumpfun-BE.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -27,7 +27,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "prepumpfunbe.serviceAccountName" . }}
+      serviceAccountName: {{ include "Pre-Pumpfun-BE.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
