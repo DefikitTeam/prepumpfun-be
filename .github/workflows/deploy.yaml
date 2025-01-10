@@ -21,8 +21,8 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker build -t yourImageRepository:${{ github.sha }} .
-        docker push yourImageRepository:${{ github.sha }}
+        docker build -t javakent91/prepump-be:${{ github.sha }} .
+        docker push javakent91/prepump-be:${{ github.sha }}
 
     - name: Set up Kubectl
       uses: azure/setup-kubectl@v3
