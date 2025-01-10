@@ -42,13 +42,22 @@ jobs:
     - name: Install Helm
       uses: azure/setup-helm@v1
 
+    - name: List directory
+      run: ls -la
+
+    - name: Go out
+      run: cd ..
+
+    - name: List directory 2
+      run: ls -la
+
     - name: Create Kubernetes Namespace
       run: |
         kubectl get namespace prepump-be || kubectl create namespace prepump-be
 
     - name: Deploy to Kubernetes using Helm
       run: |
-        helm upgrade --install . \
+        helm upgrade --install prepumpfunbe . \
           --set image.repository=javakent91/prepump-be \
           --set image.tag=${{ github.sha }} \
           --namespace prepump-be
