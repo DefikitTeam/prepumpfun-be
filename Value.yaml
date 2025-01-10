@@ -1,0 +1,19 @@
+replicaCount: 1
+image:
+  repository: javakent91/prepump-be
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 80
+
+env:
+  DATABASE_URL: "postgres://user:password@db:5432/project_a"
+  JWT_SECRET: "project_a_secret"
+  NODE_ENV: "development"
+  AWS_ACCESS_KEY_ID: ""
+  AWS_SECRET_ACCESS_KEY: ""
+  AWS_REGION: "a"
+  PINATA_API_KEY: "492a53f35e81a3d8cf33"
+  PINATA_SECRET_API_KEY: "463318d1ca34cecf25c602566cbd9cad8f2d312819e6689d080b553497bc2d46"

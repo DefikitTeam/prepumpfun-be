@@ -1,0 +1,4 @@
+apiVersion: v2
+name: prepumpfun-be
+version: 0.1.0
+description: The project prepumpfun backend
