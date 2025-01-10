@@ -48,7 +48,7 @@ jobs:
 
     - name: Deploy to Kubernetes using Helm
       run: |
-        helm upgrade --install app . \
+        helm upgrade --install prepumpfunbe . \
           --set image.repository=javakent91/prepump-be \
           --set image.tag=${{ github.sha }} \
           --namespace prepump-be
