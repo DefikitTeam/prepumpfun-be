@@ -1,4 +1,4 @@
-name: Prepump BE
+name: prepumpfunbe
 
 on:
   push:
