@@ -46,7 +46,7 @@ jobs:
       run: ls -la
 
     - name: Show helm release
-      run: helm get all Pre-Pumpfun-BE -n prepump-be
+      run: helm list -n prepump-be
 
     - name: Create Kubernetes Namespace
       run: |
