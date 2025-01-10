@@ -46,10 +46,7 @@ jobs:
       run: ls -la
 
     - name: Go out
-      run: cd ~
-
-    - name: List directory 2
-      run: ls -la
+      run: cd .. && ls -la
 
     - name: Create Kubernetes Namespace
       run: |
@@ -57,7 +54,7 @@ jobs:
 
     - name: Deploy to Kubernetes using Helm
       run: |
-        helm upgrade --install prepumpfunbe . \
+        cd && helm upgrade --install prepumpfunbe . \
           --set image.repository=javakent91/prepump-be \
           --set image.tag=${{ github.sha }} \
           --namespace prepump-be
