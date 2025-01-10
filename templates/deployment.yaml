@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "Pre-Pumpfun-BE.fullname" . }}
+  name: prepumpfunbe
   labels:
     {{- include "Pre-Pumpfun-BE.labels" . | nindent 4 }}
 spec:
@@ -10,7 +10,7 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      {{- include "Pre-Pumpfun-BE.selectorLabels" . | nindent 6 }}
+      app: prepumpfunbe
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -31,7 +31,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ .Chart.Name | "prepumpfunbe" }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
