@@ -5,9 +5,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('campaign')
 export class CampaignController {
-  constructor(
-    private readonly campaignService: CampaignService,
-  ) {}
+  constructor(private readonly campaignService: CampaignService) {}
 
   @Get()
   async getCampaigns() {
@@ -15,7 +13,7 @@ export class CampaignController {
     return {
       data: listCampaign,
       message: 'List of campaigns',
-    }
+    };
   }
 
   @Get('/status')
@@ -24,7 +22,16 @@ export class CampaignController {
     return {
       data: listCampaignStatus,
       message: 'List of campaign status',
-    }
+    };
+  }
+
+  @Get('/token-status')
+  async getCampaignTokenStatus() {
+    const listCampaignTokenStatus = await this.campaignService.getCampaignTokenStatus();
+    return {
+      data: listCampaignTokenStatus,
+      message: 'List of campaign token status',
+    };
   }
 
   @Post('/upload')
@@ -33,12 +40,12 @@ export class CampaignController {
     const url = await this.campaignService.uploadMetadata({
       file: file.buffer,
       name: body.name,
-      description: body.description
+      description: body.description,
     });
-    
+
     return {
       data: { url },
-      message: 'File uploaded successfully'
+      message: 'File uploaded successfully',
     };
   }
 }

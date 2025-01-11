@@ -4,7 +4,7 @@ import { Controller, Get, VERSION_NEUTRAL } from '@nestjs/common';
   version: VERSION_NEUTRAL,
 })
 export class AppController {
-  @Get("/health")
+  @Get('/health')
   health() {
     return { status: 'ok' };
   }

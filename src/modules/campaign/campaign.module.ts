@@ -7,7 +7,6 @@ import { CampaignController } from '@/modules/campaign/campaign.controller';
   controllers: [CampaignController],
   providers: [CampaignService],
   exports: [],
-  imports: [PrismaModule]
+  imports: [PrismaModule],
 })
-
 export default class CampaignModule {}

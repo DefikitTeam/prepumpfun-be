@@ -5,12 +5,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import CampaignModule from '@/modules/campaign/campaign.module';
 
 @Module({
-  imports: [
-    SentryModule.forRoot(),
-    ScheduleModule.forRoot(),
-
-    CampaignModule
-  ],
+  imports: [SentryModule.forRoot(), ScheduleModule.forRoot(), CampaignModule],
   controllers: [AppController],
 })
 export class AppModule {}
