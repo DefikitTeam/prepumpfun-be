@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "defikit-helm.fullname" . }}
+  name: {{ include "prepumfunbe.fullname" . }}
   labels:
-    {{- include "defikit-helm.labels" . | nindent 4 }}
+    {{- include "prepumfunbe.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "defikit-helm.fullname" . }}
+    name: {{ include "prepumfunbe.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:
