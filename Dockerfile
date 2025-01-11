@@ -26,7 +26,7 @@ RUN pnpm prisma:generate
 RUN pnpm build
 
 # Expose the application port
-EXPOSE 3000
+EXPOSE 3003
 
 # Start the application with the command
 CMD ["/bin/sh", "-c", "pnpm start:prod"]
