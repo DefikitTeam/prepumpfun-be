@@ -44,6 +44,18 @@ model AddTokenPumpProcesses {
   campaignIndex Int
   creator       String
   status        String
+  mint          String?
 
   @@map("add_token_pump_processes")
+}
+
+model SellProgress {
+  id               String @id @default(cuid()) @map("_id") @db.ObjectId
+  campaignIndex    Int      
+  mint             String?
+  creator          String
+  is_sell_all      Boolean
+  claimable_amount Int
+
+  @@map("sell_token_progress")
 }

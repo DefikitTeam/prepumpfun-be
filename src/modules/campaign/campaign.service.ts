@@ -7,22 +7,24 @@ import { request } from 'http';
 
 @Injectable()
 export class CampaignService {
-  constructor(
-    private readonly prismaRepository: PrismaRepository
-  ) {}
+  constructor(private readonly prismaRepository: PrismaRepository) {}
 
   async getCampaigns() {
     return this.prismaRepository.campaign.findMany();
   }
-  
+
   async getCampaignStatus() {
     return this.prismaRepository.addTokenPumpProcesses.findMany();
+  }
+
+  async getCampaignTokenStatus() {
+    return this.prismaRepository.sellProgress.findMany();
   }
 
   async uploadMetadata(data: UploadMetaData) {
     // Upload image to IPFS
     const formData = new FormData();
-    
+
     const blob = new Blob([data.file], { type: 'application/octet-stream' });
     formData.append('file', blob);
 
@@ -32,7 +34,7 @@ export class CampaignService {
         pinata_api_key: config.PINATA_API_KEY,
         pinata_secret_api_key: config.PINATA_SECRET_API_KEY,
       },
-      body: formData
+      body: formData,
     });
 
     const imageData = await imageRes.json();
@@ -42,7 +44,7 @@ export class CampaignService {
     const metadata = {
       name: data.name,
       description: data.description,
-      image: imageUrl
+      image: imageUrl,
     };
 
     const metadataRes = await fetch('https://api.pinata.cloud/pinning/pinJSONToIPFS', {
@@ -52,7 +54,7 @@ export class CampaignService {
         pinata_api_key: config.PINATA_API_KEY,
         pinata_secret_api_key: config.PINATA_SECRET_API_KEY,
       },
-      body: JSON.stringify(metadata)
+      body: JSON.stringify(metadata),
     });
 
     const metadataData = await metadataRes.json();
@@ -64,4 +66,4 @@ type UploadMetaData = {
   file: Buffer;
   name: string;
   description: string;
-}
+};
