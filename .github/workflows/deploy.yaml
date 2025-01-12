@@ -56,7 +56,7 @@ jobs:
     steps:
       - name: Check out deployment repo
         run: |
-          git clone https://${{ secrets.GIT_REPO_TOKEN }}@gitlab.com/thichchocbia/defikitargocd.git
+          git clone https://oauth2:${{ secrets.GIT_REPO_TOKEN }}@gitlab.com/thichchocbia/defikitargocd.git
           cd defikitargocd
           echo "TAG=${{ steps.build-image.outputs.TAG }}" > deployment-tag.txt
 
