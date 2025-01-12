@@ -35,8 +35,8 @@ jobs:
 
       - name: Build and Push Docker Image
         id: build-image
-        run:
-          export TAG=$(echo "${{ github.ref_name }}" | sed 's/\//-/g')-${{ github.sha::8 }}-$(date +%s)
+        run: |
+          export TAG=$(echo "${{ github.ref_name }}" | sed 's/\//-/g')-$(echo "${{ github.sha }}" | cut -c1-8)-$(date +%s)
           docker build --pull -t ${{ secrets.DOCKER_REPO }}:$TAG .
           docker push ${{ secrets.DOCKER_REPO }}:$TAG
           echo "TAG=$TAG" >> $GITHUB_ENV
